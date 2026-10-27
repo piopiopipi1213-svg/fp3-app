@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>枝豆のFP3級ドリル</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:#f6fbf5;
+  color:#26332a;
+}
+
+header{
+  background:#ffffff;
+  padding:18px;
+  border-bottom:1px solid #dfe9df;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#65aa72;
+}
+
+main{
+  max-width:700px;
+  margin:auto;
+  padding:16px;
+  padding-bottom:90px;
+}
+
+.card{
+  background:white;
+  border:1px solid #dfe9df;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px rgba(70,100,75,.07);
+}
+
+h1{
+  margin:0 0 8px;
+  font-size:26px;
+}
+
+h2{
+  margin-top:0;
+}
+
+.sub{
+  color:#748078;
+  line-height:1.7;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.primary{
+  width:100%;
+  background:#69ad75;
+  color:white;
+  margin-top:10px;
+}
+
+.secondary{
+  width:100%;
+  background:#eaf6ec;
+  color:#315c39;
+  margin-top:10px;
+}
+
+.menu{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #dfe9df;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+.menu button{
+  background:white;
+  border-radius:0;
+  font-size:12px;
+  padding:10px 3px;
+  color:#536059;
+}
+
+.menu .active{
+  color:#4d965a;
+  font-weight:900;
+}
+
+.hidden{
+  display:none;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:18px 0;
+}
+
+.stat{
+  text-align:center;
+  background:#eaf6ec;
+  padding:12px 5px;
+  border-radius:14px;
+}
+
+.stat strong{
+  display:block;
+  font-size:21px;
+}
+
+.stat span{
+  font-size:11px;
+  color:#748078;
+}
+
+.question{
+  font-size:20px;
+  font-weight:800;
+  line-height:1.6;
+  margin:18px 0;
+}
+
+.option{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:white;
+  border:1px solid #dfe9df;
+  margin:9px 0;
+}
+
+.option.correct{
+  background:#eaf7ed;
+  border-color:#75bd84;
+}
+
+.option.wrong{
+  background:#fff0f0;
+  border-color:#d98b8b;
+}
+
+.feedback{
+  background:#f4f8f4;
+  padding:15px;
+  border-radius:14px;
+  line-height:1.7;
+  margin-top:15px;
+}
+
+.search{
+  width:100%;
+  border:1px solid #ccd9ce;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+  margin-bottom:14px;
+}
+
+.word{
+  border-bottom:1px solid #e5ece6;
+  padding:14px 0;
+}
+
+.word:last-child{
+  border-bottom:0;
+}
+
+.word h3{
+  margin:0 0 5px;
+}
+
+.word p{
+  margin:0;
+  line-height:1.7;
+}
+
+.tag{
+  display:inline-block;
+  font-size:11px;
+  background:#eaf6ec;
+  padding:4px 8px;
+  border-radius:20px;
+  color:#4d7555;
+  margin-bottom:7px;
+}
+
+.column{
+  cursor:pointer;
+}
+
+.column h3{
+  margin:5px 0;
+}
+
+.column-body{
+  line-height:1.9;
+  background:#f8fbf8;
+  padding:15px;
+  margin-top:10px;
+  border-radius:14px;
+}
+
+.small{
+  font-size:12px;
+  color:#748078;
+}
+
+.notice{
+  background:#fff8e8;
+  padding:14px;
+  border-radius:14px;
+  line-height:1.7;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌱 <span>枝豆</span>のFP3級ドリル</div>
+</header>
+
+<main>
+
+<section id="home">
+  <div class="card">
+    <div class="small">FP3級 学習サポート</div>
+    <h1>今日もちょっとだけ</h1>
+    <p class="sub">
+      問題を解いて、分からない言葉を調べて、
+      難しいところはやさしいコラムで復習できます。
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="rate">0%</strong>
+        <span>正答率</span>
+      </div>
+
+      <div class="stat">
+        <strong id="answered">0問</strong>
+        <span>解いた問題</span>
+      </div>
+
+      <div class="stat">
+        <strong id="wrongCount">0問</strong>
+        <span>復習待ち</span>
+      </div>
+    </div>
+
+    <button class="primary" onclick="startQuiz(false)">
+      今日の10問をはじめる
+    </button>
+
+    <button class="secondary" onclick="startQuiz(true)">
+      間違えた問題だけ復習
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>このアプリでできること</h2>
+    <p class="sub">
+      ✅ FP3級の問題演習<br>
+      ✅ 間違えた問題の記録<br>
+      ✅ 専門用語のことば帳<br>
+      ✅ 難しい単元のやさしいコラム
+    </p>
+  </div>
+
+  <div class="notice">
+    制度・税金・社会保険は改正されることがあります。
+    試験前には最新の教材や公式情報も確認してください。
+  </div>
+</section>
+
+
+<section id="quiz" class="hidden">
+
+  <div class="card">
+
+    <div class="small" id="quizCount"></div>
+
+    <div class="question" id="question"></div>
+
+    <div id="options"></div>
+
+    <div id="feedback" class="feedback hidden"></div>
+
+    <button id="nextBtn"
+            class="primary hidden"
+            onclick="nextQuestion()">
+      次の問題へ
+    </button>
+
+  </div>
+
+</section>
+
+
+<section id="words" class="hidden">
+
+  <div class="card">
+
+    <h1>ことば帳</h1>
+
+    <p class="sub">
+      「この言葉なんだっけ？」と思ったときに検索できます。
+    </p>
+
+    <input
+      id="wordSearch"
+      class="search"
+      placeholder="例：PER、債券、相続"
+      oninput="renderWords()"
+    >
+
+    <div id="wordList"></div>
+
+  </div>
+
+</section>
+
+
+<section id="columns" class="hidden">
+
+  <div class="card">
+
+    <h1>やさしいコラム</h1>
+
+    <p class="sub">
+      難しいところを、小学生でも分かるくらいの言葉で説明します。
+    </p>
+
+    <div id="columnList"></div>
+
+  </div>
+
+</section>
+
+
+<section id="result" class="hidden">
+
+  <div class="card">
+
+    <h1>おつかれさま！</h1>
+
+    <div style="font-size:44px;font-weight:900;color:#69ad75;text-align:center;"
+         id="resultScore">
+    </div>
+
+    <p class="sub" id="resultText"></p>
+
+    <button class="primary" onclick="showPage('home')">
+      ホームへ戻る
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<div class="menu">
+
+  <button id="menu-home"
+          class="active"
+          onclick="showPage('home')">
+    🏠<br>ホーム
+  </button>
+
+  <button id="menu-quiz"
+          onclick="startQuiz(false)">
+    ✏️<br>問題
+  </button>
+
+  <button id="menu-words"
+          onclick="showPage('words')">
+    📖<br>ことば帳
+  </button>
+
+  <button id="menu-columns"
+          onclick="showPage('columns')">
+    📝<br>コラム
+  </button>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+{
+q:"将来ほしい金額から、毎年いくら積み立てればよいかを計算するときに使う係数は？",
+options:["終価係数","減債基金係数","現価係数","資本回収係数"],
+answer:1,
+explain:"減債基金係数は『将来100万円ほしい。では毎年いくら貯めればいい？』を考えるときに使います。"
+},
+
+{
+q:"今あるお金から、毎年いくらずつ受け取れるかを考えるときに使う係数は？",
+options:["資本回収係数","減債基金係数","終価係数","現価係数"],
+answer:0,
+explain:"資本回収係数は『今ある100万円から、毎年いくら使える？』を考える係数です。"
+},
+
+{
+q:"市場の金利が上がると、すでに発行されている固定金利の債券価格は一般にどうなる？",
+options:["上がりやすい","下がりやすい","必ず同じ","必ず2倍"],
+answer:1,
+explain:"新しく出る債券の金利が高くなると、古い低金利の債券は人気が下がるため、値段も下がりやすくなります。"
+},
+
+{
+q:"会社がお金を返せなくなるかもしれない危険を何という？",
+options:["信用リスク","為替リスク","価格優待","配当率"],
+answer:0,
+explain:"信用リスクは『貸した相手がお金を返せなくなるかもしれない危険』のことです。"
+},
+
+{
+q:"PERは、株価を何で割って計算する？",
+options:["1株あたり利益","1株あたり純資産","年間配当金","売上高"],
+answer:0,
+explain:"PER＝株価÷1株あたり利益（EPS）です。利益に対して株価が何倍になっているかを見る数字です。"
+},
+
+{
+q:"PBRは、株価を何で割って計算する？",
+options:["年間配当金","売上高","1株あたり純資産","1株あたり利益"],
+answer:2,
+explain:"PBR＝株価÷1株あたり純資産（BPS）です。会社の財産に対して株価が何倍かを見る数字です。"
+},
+
+{
+q:"株価2,000円、年間配当60円の場合、配当利回りは？",
+options:["1％","2％","3％","6％"],
+answer:2,
+explain:"60÷2,000×100＝3％です。"
+},
+
+{
+q:"株価が上がって含み益が出た場合、その利益を売却せずに別の株の購入代金として使える？",
+options:["使える","使えない","自動で配当になる","自動でポイントになる"],
+answer:1,
+explain:"含み益は『今売れば利益が出る状態』です。まだ現金ではないので、そのまま別の株を買うお金には使えません。"
+},
+
+{
+q:"配当金と株主優待の違いとして正しいものは？",
+options:[
+"配当金は現金、優待は商品や割引など",
+"配当金は商品、優待は必ず現金",
+"どちらも国からもらう",
+"どちらも株価の値上がり分"
+],
+answer:0,
+explain:"配当金は会社から株主に分けるお金。株主優待は商品や割引券などのサービスです。"
+},
+
+{
+q:"定期保険の特徴として近いものは？",
+options:[
+"決めた期間だけ死亡保障がある",
+"一生涯必ず保障される",
+"必ず元本以上戻る",
+"自動車だけを保障する"
+],
+answer:0,
+explain:"定期保険は『10年間』など、決めた期間だけ死亡保障を持つ保険です。"
+},
+
+{
+q:"終身保険の特徴として近いものは？",
+options:[
+"一定期間だけ保障",
+"一生涯の死亡保障",
+"車の事故だけ保障",
+"失業だけ保障"
+],
+answer:1,
+explain:"終身保険の『終身』は一生という意味です。基本的に死亡保障が一生続きます。"
+},
+
+{
+q:"地震が原因で起きた火災に備えるために必要になる保険は？",
+options:[
+"火災保険だけ",
+"地震保険",
+"自賠責保険",
+"生命保険"
+],
+answer:1,
+explain:"地震が原因の火災は、通常の火災保険だけでは十分に補償されないため、地震保険で備えます。"
+},
+
+{
+q:"自賠責保険が主に補償するものは？",
+options:[
+"自分の車",
+"相手の車",
+"他人のけがや死亡",
+"自宅の火災"
+],
+answer:2,
+explain:"自賠責保険は交通事故の被害者を守るため、主に他人のけがや死亡を補償します。"
+},
+
+{
+q:"上場企業とは、簡単にいうとどんな会社？",
+options:[
+"株を証券取引所で売買できる会社",
+"国が経営している会社",
+"必ず黒字の会社",
+"社員100人以上の会社"
+],
+answer:0,
+explain:"上場企業は、その会社の株を証券取引所で一般の投資家が売買できる会社です。"
+},
+
+{
+q:"住宅ローンの繰上返済で、一般に利息をより多く減らしやすい方法は？",
+options:[
+"期間短縮型",
+"返済額軽減型",
+"団信解約",
+"返済停止"
+],
+answer:0,
+explain:"期間短縮型は返済する期間そのものを短くするため、一般に利息を減らす効果が大きくなります。"
+}
+
+];
+
+
+const words = [
+
+["PER","株価が、会社の利益の何倍になっているかを見る数字。","株式"],
+
+["PBR","株価が、会社の財産の何倍になっているかを見る数字。","株式"],
+
+["EPS","1株あたり、会社がどれくらい利益を出したかを表す数字。","株式"],
+
+["BPS","会社の純資産を1株あたりに分けた数字。","株式"],
+
+["配当金","会社が利益などの一部を株主に分けるお金。","株式"],
+
+["株主優待","株を持っている人に会社が商品や割引券などを渡すサービス。","株式"],
+
+["含み益","まだ株を売っていないけれど、今売れば利益が出る状態。","株式"],
+
+["上場","会社の株を証券取引所で一般の人が売買できるようにすること。","株式"],
+
+["現物取引","自分が持っているお金の範囲で株を買う方法。","株式"],
+
+["信用取引","証券会社からお金や株を借りて取引する方法。初心者にはリスクが高め。","株式"],
+
+["債券","国や
